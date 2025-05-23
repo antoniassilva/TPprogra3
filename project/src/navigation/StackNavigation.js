@@ -10,15 +10,7 @@ const Stack = createNativeStackNavigator();
 function StackNavigation() {
     return(
         <Stack.Navigator>
-                        <Stack.Screen 
-            name='Home' 
-            component={Home}
-            options={
-                {
-                    headerShown: false
-                }
-            }
-            />
+                        
              <Stack.Screen
                 name='Login'
                 component={Login}
@@ -35,7 +27,15 @@ function StackNavigation() {
             }} 
             />
             
-        
+            <Stack.Screen 
+                name='Home' 
+                component={Home}
+                options={
+                {
+                    headerShown: false
+                }
+            }
+            />
             <Stack.Screen
                 name='Tab'
                 component={BottomTabs}
