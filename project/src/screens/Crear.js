@@ -38,7 +38,7 @@ class Crear extends Component {
                   style={styles.backgroundImage} 
                 />
                 <Text style={styles.nombre}>Cafe y opina</Text>
-        <Text style={styles.titulo}>Crear Post </Text>
+  
         <TextInput
           style={styles.campo}
           placeholder="Nombre de la Cafeteria"
@@ -77,9 +77,10 @@ const styles = StyleSheet.create({
   nombre: {
     fontSize: 36,
     color: '#FFFFFF',
-    margin: 20,
+    marginBottom: 20,
     textAlign: 'center',
-    fontFamily: 'italic',
+    fontFamily: 'Georgia',
+    fontStyle: 'italic',
   },
     
  backgroundImage: {
@@ -90,14 +91,7 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: -1, 
   },
-  titulo: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#3A3A3A',
-    marginBottom: 30,
-    textAlign: 'center',
-    fontFamily: 'Roboto',
-  },
+
   campo: {
     width: '90%',
     marginBottom: 20,

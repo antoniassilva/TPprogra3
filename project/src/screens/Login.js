@@ -53,7 +53,6 @@ class Login extends Component {
          />
         <Text style={styles.nombre}>Cafe y opina</Text>
     
-        <Text style={styles.titulo}>Ingresar</Text>
         <TextInput
           style={styles.campo}
           keyboardType='email'
@@ -103,9 +102,10 @@ const styles = StyleSheet.create({
   nombre: {
     fontSize: 36,
     color: '#FFFFFF',
-    margin: 20,
+    marginBottom: 20,
     textAlign: 'center',
-    fontFamily: 'italic',
+    fontFamily: 'Georgia',
+    fontStyle: 'italic',
   },
     
  backgroundImage: {
@@ -115,14 +115,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     zIndex: -1, 
-  },
-  titulo: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#3A3A3A',
-    marginBottom: 30,
-    textAlign: 'center',
-    fontFamily: 'Roboto',
   },
   
   campo: {

@@ -72,9 +72,10 @@ const styles = StyleSheet.create({
     titulo: {
     fontSize: 36,
     color: '#FFFFFF',
-    margin: 20,
+    marginBottom: 20,
     textAlign: 'center',
-    fontFamily: 'italic',
+    fontFamily: 'Georgia',
+    fontStyle: 'italic',
   },
     
  backgroundImage: {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     borderColor: '#3A3A3A',
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#A0673C',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

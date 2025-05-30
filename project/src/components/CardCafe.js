@@ -4,21 +4,28 @@ import { db, auth } from '../firebase/config';
 import firebase from 'firebase';
 import { Ionicons } from '@expo/vector-icons';
 
+
 class CardCafe extends Component {
     constructor(props) {
         super(props);
         this.state={
-            like:false
+            like:false,
+            cantLikes: this.props.cafe.data.likes ? this.props.cafe.data.likes.length : 0
         }
 
        
     }
 
     componentDidMount() {
-        if (this.props.cafe.data.likes.includes(auth.currentUser.email)) {
-            this.setState({ like: true });
-        }
-    }
+         if(this.props.cafe.data.likes){
+            const cantLikes = this.props.cafe.data.likes.length
+            const like = this.props.cafe.data.likes.includes(auth.currentUser.email)
+            
+            this.setState({
+                cantLikes: cantLikes,
+                like: like
+            })
+        }}
 
     likear(){
         db.collection('posts')
@@ -27,7 +34,8 @@ class CardCafe extends Component {
             likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
         })
         .then(()=>this.setState({
-            like:true
+            like:true,
+            cantLikes: this.state.cantLikes + 1
         }))
     }
 
@@ -53,15 +61,25 @@ class CardCafe extends Component {
                 <Text style={styles.titulo}>{this.props.cafe.data.titulo}</Text>
                 <Text style={styles.descripcion}>{this.props.cafe.data.descripcion}</Text>
                 <Text style={styles.user}>Publicado por: {this.props.cafe.data.email}</Text>
+
                 {       this.state.like ?
                         <TouchableOpacity onPress={() => this.dislike()}>
-                            <Text>DisLike</Text>
+                            <Ionicons
+                            name='heart'
+                            size={24}
+                            color='red' 
+                        />
                         </TouchableOpacity>
                         :
                         <TouchableOpacity onPress={() => this.likear()}>
-                            <Text>Like</Text>
+                        <Ionicons
+                            name='heart-outline'
+                            size={24}
+                            color='gray' 
+                        />
                         </TouchableOpacity>
                 }
+                <Text style={styles.cantLikes}>Likes: {this.state.cantLikes}</Text>
         
             </View>
         );
@@ -81,23 +99,31 @@ const styles = StyleSheet.create({
     descripcion: {
         fontSize: 18,
         textAlign: 'center',
-        color: '#606060',
+        color: '#ffff',
         fontFamily: 'Roboto',
         marginBottom: 5
     },
     titulo: {
         fontSize: 22,
         textAlign: 'center',
-        color: '#606060',
+        color: '#ffff',
         fontFamily: 'Roboto',
         marginBottom: 5
     },
 
     user: {
-        textAlign: 'flex-end',
-        color: '#606060',
+        textAlign: 'center',
+        color: '#ffff',
         fontFamily: 'Roboto',
         fontSize: 14,
         fontStyle: 'italic',
     },
+    cantLikes:{
+        textAlign: 'flex-end',
+        color: '#ffff',
+        fontFamily: 'Roboto',
+        fontSize: 14,
+    
+
+    }
 })
