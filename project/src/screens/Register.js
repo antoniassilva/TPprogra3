@@ -16,37 +16,48 @@ class Register extends Component {
 
 
     registrarUsuario(email, password, username){
-        if (!email.includes('@')) {
-            this.setState({ error: 'Email mal formateado' });
-            return;
-        }
+      if (email === '') {
+          this.setState({ error: 'El email no puede estar vacío' });
+          return;
+      }
 
-        if (password.length < 6) {
-        this.setState({ error: 'La password debe tener una longitud mínima de 6 caracteres' });
-        return;
-        }
+      if (password === '') {
+          this.setState({ error: 'La contraseña no puede estar vacía' });
+          return;
+      }
 
-        if (username === "") {
-        this.setState({ error: 'Debe ingresar su nombre' });
-        return;
-        }
-          auth.createUserWithEmailAndPassword(email, password)
+      if (username === '') {
+          this.setState({ error: 'Debe ingresar su nombre' });
+          return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
           .then(() => {
-
-            db.collection('users')
-            .add({
-                owner: email,
-                createdAt: Date.now(),
-                updatedAt: Date.now(),
-                username: username
-            })
-            .then(()=> {
-                this.props.navigation.navigate('Login')
-            })
-
+              db.collection('users')
+              .add({
+                  owner: email,
+                  createdAt: Date.now(),
+                  updatedAt: Date.now(),
+                  username: username
+              })
+              .then(() => {
+                  this.props.navigation.navigate('Login')
+              })
           })
-          .catch(err=> console.log('err:', err))  
-        }
+          .catch(err => {
+              let mensaje = '';
+              if (err.code === 'auth/email-already-in-use') {
+                  mensaje = 'El email ya está en uso';
+              } else if (err.code === 'auth/invalid-email') {
+                  mensaje = 'El email es inválido';
+              } else if (err.code === 'auth/weak-password') {
+                  mensaje = 'La contraseña debe tener al menos 6 caracteres';
+              } else {
+                  mensaje = err.message;
+              }
+              this.setState({ error: mensaje });
+          })
+  }
     
 
     render(){
