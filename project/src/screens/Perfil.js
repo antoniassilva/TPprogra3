@@ -31,22 +31,18 @@ class Perfil extends Component {
             data: doc.data(),
           });
         });
+        postArray.sort((a, b) => b.data.createdAt - a.data.createdAt);
         this.setState({ userPosts: postArray });
       });
   }
 
-  logout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        this.props.navigation.navigate('Login');
-      })
-      .catch((error) => {
-        console.error('Error al cerrar sesión: ', error);
-      });
-  };
+   logout(){
+    auth.signOut()
+    .then(()=> this.props.navigation.navigate('Login'))
+    .catch(err => console.log('err en signout', err))
+  }
 
-  eliminarPost = (id) => {
+  eliminarPost (id) {
     db.collection('posts')
       .doc(id)
       .delete()
@@ -78,7 +74,7 @@ class Perfil extends Component {
             </Text>
           </View>
 
-          <TouchableOpacity style={styles.boton} onPress={this.logout}>
+          <TouchableOpacity style={styles.boton} onPress={() => this.logout()}>
             <Text style={styles.botonText}>Logout</Text>
           </TouchableOpacity>
 

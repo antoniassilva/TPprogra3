@@ -6,39 +6,40 @@ class Crear extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      titulo:'',
+      titulo: '',
       descripcion: '',
       error: ''
     };
   }
 
-  onSubmit = () => {
+  onSubmit() {
+
     db.collection('posts').add({
-        email: auth.currentUser.email,
-        descripcion: this.state.descripcion,
-        titulo:this.state.titulo,
-        likes: [],
-        createdAt: Date.now(),
-      })
-      .then(() => {
-        this.setState({ error: "", descripcion: "",titulo:""});
-        this.props.navigation.navigate("Home");
-      })
-      .catch((e) => {
-        console.log(e);
-        this.setState({ error: 'Error al guardar el post. Intenta de nuevo.' });
-      });
-  };
+      email: auth.currentUser.email,
+      titulo: this.state.titulo,
+      descripcion: this.state.descripcion,
+      likes: [],
+      createdAt: Date.now(),
+    })
+    .then(() => {
+      this.setState({ error: '', descripcion: '', titulo: '' });
+      this.props.navigation.navigate('Home');
+    })
+    .catch((e) => {
+      console.log(e);
+      this.setState({ error: 'Error al guardar el post. Intenta de nuevo.' });
+    });
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <Image
-                  source={require('../../assets/fondo1.png')}
-                  style={styles.backgroundImage} 
-                />
-                <Text style={styles.nombre}>Cafe y opina</Text>
-  
+          source={require('../../assets/fondo1.png')}
+          style={styles.backgroundImage}
+        />
+        <Text style={styles.nombre}>Cafe y opina</Text>
+
         <TextInput
           style={styles.campo}
           placeholder="Nombre de la Cafeteria"
@@ -52,17 +53,19 @@ class Crear extends Component {
           value={this.state.descripcion}
           onChangeText={(text) => this.setState({ descripcion: text })}
         />
+
         {this.state.error ? (
-          <Text style={styles.errorText}>{this.state.error}</Text>
+          <Text style={styles.error}>{this.state.error}</Text>
         ) : null}
 
-        <TouchableOpacity style={styles.boton} onPress={this.onSubmit}>
+        <TouchableOpacity style={styles.boton} onPress={() => this.onSubmit()}>
           <Text style={styles.botonText}>Publicar cafe</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
+
 
 export default Crear;
 
@@ -128,10 +131,11 @@ const styles = StyleSheet.create({
   },
   error: {
     color: '#FF4D4D',
-    fontSize: 14,
+    fontSize: 20,
     marginTop: 15,
     textAlign: 'center',
     fontFamily: 'Roboto',
-  }
+    backgroundColor:"#FFFF"
+  },
 
 });

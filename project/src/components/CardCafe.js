@@ -46,7 +46,8 @@ class CardCafe extends Component {
             likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
         .then(()=>this.setState({
-            like:false
+            like:false,
+            cantLikes: this.state.cantLikes - 1
         }))
 
     }

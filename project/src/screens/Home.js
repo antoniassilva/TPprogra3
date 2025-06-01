@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
 import { db } from '../firebase/config';
 import CardCafe from "../components/CardCafe"
 
@@ -8,6 +8,7 @@ class Home extends Component {
     super(props);
     this.state = {
       posteos: [],
+      loading: true,
 
     };
   }
@@ -26,7 +27,8 @@ class Home extends Component {
         });
 
         this.setState({ 
-            posteos: posts
+            posteos: posts,
+            loading:false
          });
       },
       (error) => console.log(error)
@@ -41,16 +43,20 @@ class Home extends Component {
           style={styles.backgroundImage} 
         />
         <Text style={styles.titulo}>Cafe y opina</Text>
-        <FlatList
-          data={this.state.posteos}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => 
-          <View style={styles.subContainer}>
-            <CardCafe cafe={item}/>
-          </View>
-          }
-        
-        />
+
+        {
+          this.state.loading
+          ? <ActivityIndicator size="large" color="#A0673C" />
+          : <FlatList
+              data={this.state.posteos}
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => 
+                <View style={styles.subContainer}>
+                  <CardCafe cafe={item}/>
+                </View>
+              }
+            />
+        }
 
         </View>
       

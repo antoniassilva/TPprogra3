@@ -21,20 +21,20 @@ class Login extends Component {
         })
     }
 
-  onSubmit = () => {
+  onSubmit(email,password){
     
 
-    if (!this.state.email.includes('@')) {
+    if (!email.includes('@')) {
       this.setState({ error: 'Email mal formateado' });
       return;
     }
 
-    if (this.state.password.length < 6) {
+    if (password.length < 6) {
       this.setState({ error: 'La password debe tener una longitud mínima de 6 caracteres' });
       return;
     }
 
-    auth.signInWithEmailAndPassword(this.state.email, this.state.password)
+    auth.signInWithEmailAndPassword(email, password)
       .then((response) => {
         this.setState({ logueado: true, error: '' });
         this.props.navigation.navigate('Tab'); 
@@ -70,7 +70,7 @@ class Login extends Component {
           value={this.state.password}
         />
 
-        <TouchableOpacity style={styles.boton}onPress={this.onSubmit}>
+        <TouchableOpacity style={styles.boton} onPress={() => this.onSubmit(this.state.email, this.state.password)}>
           <Text style={styles.botonText}>Login</Text>
         </TouchableOpacity>
 
@@ -153,9 +153,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: '#FF4D4D',
-    fontSize: 14,
+    fontSize: 20,
     marginTop: 15,
     textAlign: 'center',
     fontFamily: 'Roboto',
+    backgroundColor:"#FFFF"
   },
 });

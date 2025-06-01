@@ -161,9 +161,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: '#FF4D4D',
-    fontSize: 14,
+    fontSize: 20,
     marginTop: 15,
     textAlign: 'center',
     fontFamily: 'Roboto',
+    backgroundColor:"#FFFF"
   },
 });
