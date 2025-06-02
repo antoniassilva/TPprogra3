@@ -113,8 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 25,
-    backgroundColor:'#F3E1D1'
+    paddingHorizontal: 25
   },
   
   nombre: {

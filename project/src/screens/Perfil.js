@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, FlatList, Image, TouchableOpacity} from 'react-native';
 import { auth, db } from '../firebase/config';
+import { Ionicons } from '@expo/vector-icons';
 
 class Perfil extends Component {
   constructor(props) {
@@ -64,11 +65,9 @@ class Perfil extends Component {
           <Text style={styles.nombre}>Cafe y opina</Text>
 
           <View style={styles.subcontainer}>
-            <Text style={styles.titulo}>Perfil</Text>
-            <Text style={styles.descripcion}>Email: {this.state.email}</Text>
-            <Text style={styles.descripcion}>
-              Usuario: {this.state.userName}
-            </Text>
+            <Text style={styles.titulo}>Perfil<Ionicons name='person' size={20} color='white'/></Text>
+            <Text style={styles.descripcion}>Username: {this.state.userName}  </Text>
+            <Text style={styles.descripcion}>  Email: {this.state.email} </Text>
             <Text style={styles.descripcion}>
               Número de Posts: {this.state.userPosts.length}
             </Text>
@@ -93,7 +92,7 @@ class Perfil extends Component {
                     style={styles.eliminarBoton}
                     onPress={() => this.eliminarPost(item.id)}
                   >
-                    <Text style={styles.eliminarText}>Eliminar</Text>
+                    <Ionicons name='trash' size={20} color='white' />
                   </TouchableOpacity>
                 </View>
               )}
